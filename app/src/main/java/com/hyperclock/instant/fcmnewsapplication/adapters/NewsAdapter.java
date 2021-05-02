@@ -31,6 +31,10 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
         this.listener = listener;
     }
 
+    public void setArticles(List<Article> articles) {
+        this.articles = articles;
+    }
+
     @NonNull
     @Override
     public NewsAdapter.NewsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {

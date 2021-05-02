@@ -2,4 +2,11 @@
     <string name="app_name">FCM News Application</string>
     <string name="description_placeholder">Hello and welcome back to our regular morning look at private companies, public markets and the gray space in between. Today we’re exploring some fascinating data from Silicon Valley Bank markets report for Q1 2020. We’re digging into two charts that deal wit</string>
     <string name="news_image_accessibility">News image</string>
+    <string name="sort_alphabetically">Sort alphabetically</string>
+    <string name="sort_by_date">Sort by date</string>
+    <string name="sort">Sort</string>
+    <string name="filter">Filter</string>
+    <string name="date_des_sort">From Old to New</string>
+    <string name="date_asc_sort">From New to Old</string>
+    <string name="internet_error">No internet connection.</string>
 </resources>

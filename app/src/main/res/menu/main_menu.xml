@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/sort"
+        android:title="@string/sort">
+        <!-- "file" submenu -->
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/date_asc_sort"
+                    android:checked="true"
+                    android:title="@string/date_asc_sort" />
+                <item
+                    android:id="@+id/date_des_sort"
+                    android:title="@string/date_des_sort" />
+            </group>
+        </menu>
+    </item>
+
+    <item
+        android:id="@+id/filter"
+        android:title="@string/filter"/>
+</menu>

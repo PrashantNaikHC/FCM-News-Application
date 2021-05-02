@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "882667374622",
+    "project_id": "fcm-news-application",
+    "storage_bucket": "fcm-news-application.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:882667374622:android:a0f02b99d1ecb4f97f860f",
+        "android_client_info": {
+          "package_name": "com.hyperclock.instant.fcmnewsapplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "882667374622-r7o6nbid25nlelvv9f9nmepppd7pkeaf.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.hyperclock.instant.fcmnewsapplication",
+            "certificate_hash": "8692901ad9f8bcfea555f61bdab6d914119d6e3b"
+          }
+        },
+        {
+          "client_id": "882667374622-iajp58t6ljqp1tr3uncgkt7ops9g6e90.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCPH-cKfbB57cFB0CK_WatXvk7bdS1AOzo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "882667374622-iajp58t6ljqp1tr3uncgkt7ops9g6e90.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
