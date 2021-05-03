@@ -3,4 +3,5 @@
     <dimen name="general_padding">16dp</dimen>
     <dimen name="list_item_height">200dp</dimen>
     <dimen name="small_padding">8dp</dimen>
+    <dimen name="shade_height">100dp</dimen>
 </resources>

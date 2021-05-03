@@ -12,9 +12,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import androidx.annotation.MainThread;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -23,15 +21,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.SnapHelper;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.hyperclock.instant.fcmnewsapplication.adapters.NewsAdapter;
 import com.hyperclock.instant.fcmnewsapplication.model.Article;
 import com.hyperclock.instant.fcmnewsapplication.utils.DateUtils;
 import com.hyperclock.instant.fcmnewsapplication.utils.NewsUtility;
 
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
-import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -41,7 +37,6 @@ public class MainActivity extends AppCompatActivity implements NewsAdapter.Click
 
     private NewsAdapter adapter;
     private static final String LOG_TAG = "MainActivity";
-    private static final String NEWS_URL = "https://candidate-test-data-moengage.s3.amazonaws.com/Android/news-api-feed/staticResponse.json";
     List<Article> articles;
 
     TextView noNetwork;
@@ -49,24 +44,49 @@ public class MainActivity extends AppCompatActivity implements NewsAdapter.Click
     SwipeRefreshLayout refresh_layout;
     SnapHelper snapHelper;
 
-    ConnectivityManager connectivityManager;
-    NetworkInfo networkInfo;
     ExecutorService executorService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         initViews();
         initBackgroundService();
+        getToken();
         getRemoteNewsData();
-        refresh_layout.setOnRefreshListener(() -> getRemoteNewsData());
+
+        refresh_layout.setOnRefreshListener(this::getRemoteNewsData);
+        handleIntent();
+    }
+
+    // when user clicks on notification, intent data will be shown as a list item
+    private void handleIntent() {
+        if (getIntent().hasExtra("id")) {
+            Article article = Article.getArticleFromIntent(this);
+            articles.add(article);
+            recyclerView.scrollToPosition(articles.size() - 1);
+        }
+    }
+
+    // method to get the FCM token
+    private void getToken() {
+        FirebaseMessaging.getInstance().getToken()
+                .addOnCompleteListener(task -> {
+                    if (!task.isSuccessful()) {
+                        Log.w(LOG_TAG, "Fetching FCM registration token failed", task.getException());
+                        return;
+                    }
+
+                    // Get new FCM registration token
+                    String token = task.getResult();
+                    Log.d(LOG_TAG, "FCM token = " + token);
+                });
     }
 
     private void getRemoteNewsData() {
         if (isDeviceOnline(this)) {
             fetchNetworkResponse();
+            noNetwork.setVisibility(View.GONE);
         } else {
             // network unavailable, show error
             noNetwork.setVisibility(View.VISIBLE);
@@ -75,21 +95,13 @@ public class MainActivity extends AppCompatActivity implements NewsAdapter.Click
     }
 
     private void fetchNetworkResponse() {
-        // network available
-        Future<List<Article>> future = executorService.submit(new Callable<List<Article>>() {
-            @Override
-            public List<Article> call() {
-                return NewsUtility.fetchNews(NEWS_URL);
-            }
-        });
-
+        Future<List<Article>> future = executorService.submit(() -> NewsUtility.fetchNews(NewsUtility.NEWS_URL));
         try {
             refresh_layout.setRefreshing(false);
             articles = future.get();
             adapter = new NewsAdapter(articles, this, this);
             recyclerView.setAdapter(adapter);
             recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-
         } catch (ExecutionException e) {
             e.printStackTrace();
         } catch (InterruptedException e) {
@@ -110,7 +122,6 @@ public class MainActivity extends AppCompatActivity implements NewsAdapter.Click
         refresh_layout.setRefreshing(true);
     }
 
-
     @Override
     public void onClick(String webUrl) {
         Uri uri = Uri.parse(webUrl);
@@ -127,7 +138,6 @@ public class MainActivity extends AppCompatActivity implements NewsAdapter.Click
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        // Handle item selection
         switch (item.getItemId()) {
             case R.id.date_des_sort:
                 if (articles != null) {
@@ -146,6 +156,9 @@ public class MainActivity extends AppCompatActivity implements NewsAdapter.Click
         }
     }
 
+    /**
+     * Update the article list and move the scroll position to first index
+     */
     private void updateList() {
         adapter.setArticles(articles);
         adapter.notifyDataSetChanged();

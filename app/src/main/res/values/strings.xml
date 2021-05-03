@@ -9,4 +9,5 @@
     <string name="date_des_sort">From Old to New</string>
     <string name="date_asc_sort">From New to Old</string>
     <string name="internet_error">No internet connection.</string>
+    <string name="default_notification_channel_id">9999</string>
 </resources>

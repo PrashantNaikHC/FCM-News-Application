@@ -16,7 +16,6 @@ import com.hyperclock.instant.fcmnewsapplication.model.Article;
 import com.hyperclock.instant.fcmnewsapplication.utils.DateUtils;
 
 import java.text.ParseException;
-import java.util.ArrayList;
 import java.util.List;
 
 public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder> {
@@ -47,7 +46,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
         Article article = articles.get(position);
         holder.title.setText(article.getTitle());
         holder.description.setText(article.getDescription());
-        if(article.getAuthor().equals("null")) {
+        if(article.getAuthor() == null || article.getAuthor().equals("null")) {
             holder.author.setText("");
         } else {
             holder.author.setText(article.getAuthor());
@@ -64,7 +63,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
                 .placeholder(R.drawable.ic_placeholder)
                 .into(holder.backgroundImage);
 
-        holder.itemView.setOnClickListener(view -> listener.onClick(article.getUrl()));
+        holder.title.setOnClickListener(view -> listener.onClick(article.getUrl()));
     }
 
     @Override

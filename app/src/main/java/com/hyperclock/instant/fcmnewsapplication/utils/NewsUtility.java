@@ -23,7 +23,8 @@ import java.util.List;
 
 public class NewsUtility {
 
-    public static final String LOG_TAG = "NewsUtility";
+    private static final String LOG_TAG = "NewsUtility";
+    public static final String NEWS_URL = "https://candidate-test-data-moengage.s3.amazonaws.com/Android/news-api-feed/staticResponse.json";
 
     public NewsUtility() {
     }

@@ -6,16 +6,16 @@
     android:layout_height="match_parent">
 
     <View
-        android:layout_gravity="bottom"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/list_item_height"
-        android:background="@drawable/gradient_overlay"/>
+        android:layout_gravity="bottom"
+        android:background="@drawable/gradient_overlay" />
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/general_padding"
-        app:cardCornerRadius="8dp"
+        app:cardCornerRadius="@dimen/small_padding"
         app:cardElevation="@dimen/small_padding">
 
         <LinearLayout
@@ -40,13 +40,12 @@
                 <View
                     android:id="@+id/gradient_overlay"
                     android:layout_width="wrap_content"
-                    android:layout_height="100dp"
+                    android:layout_height="@dimen/shade_height"
                     android:background="@drawable/gradient_overlay"
-                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
-
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -84,7 +83,7 @@
                     android:id="@+id/news_author"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="16dp"
+                    android:layout_margin="@dimen/general_padding"
                     android:fontFamily="sans-serif-light"
                     android:textSize="14sp"
                     android:textStyle="italic"
@@ -96,9 +95,9 @@
                     android:id="@+id/news_source"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginStart="@dimen/general_padding"
+                    android:layout_marginLeft="@dimen/general_padding"
+                    android:layout_marginTop="@dimen/general_padding"
                     android:fontFamily="sans-serif-light"
                     android:textSize="14sp"
                     android:textStyle="bold"
@@ -110,14 +109,13 @@
                     android:id="@+id/publish_date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="16dp"
+                    android:layout_marginBottom="@dimen/general_padding"
                     android:fontFamily="serif-monospace"
                     android:textSize="12sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="@+id/news_source"
                     app:layout_constraintTop_toBottomOf="@+id/news_source"
                     tools:text="12/12/2012" />
-
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
